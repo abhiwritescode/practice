@@ -93,7 +93,39 @@ bool allChildVisited (Node lastVisited, Node curr){
 }
     
             
+//Design an algorithm to count the number of paths that sum to a given value. 
 
+class Node { Node left; Node right; int value;}
+class SumsAndCount{ List<Integer> sums ; int matchingCount;}   
+    
+int pathsToSum(NOde n, int K){
+    
+    return allSums(n, K).matchingCount;
+    
+}
+    
+SumsAndCount allSums(Node n, int K){
+    
+    if (n== null) 
+         return new ArrayList<Integer>();
+
+    SumsAndCount sumsLeft = allSums(n.left);
+    SumsAndCount sumsRight = allSums(n.right);
+    
+    List<Integer> combinedFromLeft = sumsLeft.sums.stream().map(val -> val + n.value).collect(toList());// N log N
+    List<Integer> combinedFromRt = sumsRight.sums.stream().map(val -> val + n.value).collect(toList());
+    
+    List<Integer> combinedLists = ImmuatbleList.builder()
+        .addAll(combinedFromLeft)
+        .addAll(combinedFromRt)
+        .addAll(sumsLeft.sums)
+        .addAll(sumsRight.sums)
+        .add(curr.value)
+        .build();
+    int newMatchingCount = combinedLists.stream().filter(val -> val == K).collect(toList()).size();
+    
+    return new SumsAndCount(combinedLists, newMatchingCount + sumsLeft.matchingCount + sumsRight.matchingCount); 
+}
             
             
         
