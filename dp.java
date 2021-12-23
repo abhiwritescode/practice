@@ -120,3 +120,70 @@ int getMidpoint(int start, int end){
     int mid = start +  (end-start)/2;
 }
     
+
+//Write a method to return all subsets of a set.
+// Get subsets of 0 to n-1 and add n to each
+
+List<List<Integer>> getSubsets(LIst<Integer> list){
+    
+    getSubsets(list,  list.size() -1 ); // end index not inclusive
+    
+}
+List<List<Integer>> getSubsets(LIst<Integer> list,int size){
+    
+    if (size ==1){
+        return list.stream()
+            .map(element -> ImmutableList.of(element))
+            .collect(toImmutableList());
+    } //O n
+    List<List<Integer>> subsets = getSubsets(list, size-1);
+    int extraElement = list.get(size-1); //last element
+    return subsets.stream()
+        .map(subset -> ImmutableList<INteger>.newBuilder().addAll(subset).add(lastElement).build())
+        .collect(toImmutableLIst());
+}
+    
+    
+// Iterative
+List<List<INteger>> getSubsets(List<INteger> list){
+    List<List<Integer>> subSets = new ArrayList<Integer>();
+    
+    List<List<Integer>> subSet1 = list.stream()
+        .map(element -> ImmutableList.of(element)) //O n
+        .collect(toImmutableList());
+    subSets.addAll(subSet1);
+    
+    for (int i=2;i< list.size(); i++){
+        Integer newElement = list.get(i);
+        List<List<Integer>>  newSubses = subSets.stream() // O subset count
+            .map(subset -> ImmutableList.<Integer>newBuilder().addAll(subset).add(newElement).build())
+            .collect(toImmutableList());
+        subSets.addAll(newSubSets);
+    }
+    return subSets;
+    
+}
+
+
+
+
+// multiply two positive integers without using the * operator (or / operator). You can use addition, subtraction, and bit shifting
+
+12 x 17
+24 x 8.5
+48 4.25
+96 2.125
+192 1.0625
+
+= 192 (1+.0625)
+    192 * .0625 -> 192/16 -> 192 4 right bit shifts
+    
+int multiply(int A, int B){
+
+    
+    
+    
+    
+
+
+
