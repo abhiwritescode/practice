@@ -169,21 +169,208 @@ List<List<INteger>> getSubsets(List<INteger> list){
 
 // multiply two positive integers without using the * operator (or / operator). You can use addition, subtraction, and bit shifting
 
-12 x 17
-24 x 8.5
-48 4.25
-96 2.125
-192 1.0625
+// 12 x 17
+// 24 x 8.5
+// 48 4.25
+// 96 2.125
+// 192 1.0625
 
-= 192 (1+.0625)
-    192 * .0625 -> 192/16 -> 192 4 right bit shifts
+// = 192 (1+.0625)
+//     192 * .0625 -> 192/16 -> 192 4 right bit shifts
     
 int multiply(int A, int B){
+    
+    
+    int m1=A;
+    int m2=B;
+    int shifts = 0;
+    while (m2 >=2 ){
+        m1 = m1 << 1;
+        m2 = m2 >> 1;
+        shifts++;
+    }// log (B)
+    
+    // need to right shift m1 by shifts
+    decimalPart =  m1 >> shifts;
+    return m1 + decimalPart;
+}
+
+
+// towers of hanoi
+//move(n, A, B , C) -> move(n-1, A, C, B) , move(1, A , C)
+
+void move(Stack A, Stack B, Stack C){
+ 
+    
+}
+    
+void move(int n, Stack<Integer> A,  /* target */ Stack<Integer> B, /*temp*/ Stack<Integer> C){
+    if (n==1){
+        C.push(A.pop());
+        return;
+    }
+    
+    move(n-1, A, C, B);
+    move(1, A, B, C);
+    move(n-1, C, B, A);
+}
+    
+    
+//compute all permutations of a string of unique characters
+// a b c d e -> a interweave perms(bc d e)
+//  interweave -> p(n-1) -> n positions x (n-1)! perms -> n! + (n-1)! + (n-2)! + ... 1
+
+List<String> getPerms(String inputStr){
+ 
+    
+    
+}
+
+List<String> interweave (Character C, String perm){
+
+    String laggingStr /* LS */ = perm.substring(1);
+    Character firstChar = perm.getCharAt(0);
+    
+    // doBaseCase here
+    if (LS.length == 1){
+    
+    }
+    List<String> prevPerms = interweave(firstChar, laggingStr);
+    
+    // initialise with prev list.
+    List<String> permsToReturn = new ArrayList<>(prevPerms);
+    
+    prevPerms.stream()
+        .map(prevPerm -> interweave(firstChar, prevPerm))
+        .forEach(modPerm -> permsToReturn.add(modPerm));
+    
+    return prevPerms;
+}
+
+abcde
+iw(a, bcde) 
+    -> iw (
+    
+List<String> interweave(Character C, String baseStr){
+    List<String> woven = new ArrayList<>();
+    woven.add("" + C + baseStr);
+    for (i=1; i== baseStr.length; i++){
+        String part1 = baseStr.subString(0,i-1);
+        String part2 = baseStr.subString(i);
+        woven.add(part1 + C + part2);
+    }
+}
+    
+        
+        
+    
+    // return AB & BA   
+}
+    
+    
+// print all valid (e.g., properly opened and closed) combinations of n pairs of parentheses. 
+/*
+1->()
+    2-> [1] = () ; add before -> () (); add around -> (()) -> add after > ()();  = { ()() , (()) }
+    3-> [2], [1] ; weave [1] into [2];  add around    -> ()()() , ()(()), (())(), 
+    3-> [2] ; add before ()()(),()(()). add after ()()(),(())(), add around (()()),((())) -> ()()(),()(()),(())(),(()()),((()))
+    4-> [3] ; before 
+    
+    paren[k] -> for (m=1..k-1) parens[m], parens[k-m] -> combine(?)
+    for (S in parens[m]) for (S2 in parens[k-m]) concat(S,S2) and add to list for k 
+    for (S in parens[k-1]) concat '(', S, ')' and add to list for k
+*/
+String getAllParens(int N){
+
+    Map<Integer, Set<String>> parensByCOunt = new HashMap<>();
+    parensByCount.put(1, ImmutableSet.of("()"));
+    
+    for (int s = 2; s< N ; s++){ // each possible size - 
+        for ( int m = 1; m<=s; m++){ // each intermediate split
+            int sz1 = m;
+            int sz2 = s-m;
+            Set<String> parens1 = parensByCount.get(sz1);
+            Set<String> parens2 = parensByCount.get(sz2);
+            // cobine 1 and 2
+            Set<String> combined = combine(parens1, parens2);
+            parensByCount.put(s, combined);
+        }
+    }
+    
 
     
     
     
+}
     
+    
+    
+//  given a screen (represented by a two-dimensional array of colors), a point, and a new color, 
+// fill in the surrounding area until the color changes from the original color. 
 
+// BFS
+    //paint and put all green neoghbors ona queue
+    //keep till queue is empty
+    
+class Point{
+    int x;
+    int y;
+    POint(int x, int y){
+        this.x=x;
+        ..
+}
+int maxX,maxY;
+    
+void paint(int[][] canvas, int initcolor, int initX, int initY){
+    maxX = canvas.length-1;
+    maxY = canvas[0].length-1;
+    
+    Queue<Point> queue = new Queue<>();
+    if (canvas[initX][initY] == initColor){
+        qeueu.offer(new Point(initX,initY)));
+    }
+    
+    while (!queue.isEmpty()){
+        Point p = queue.get();
+        // get all initcolor neighbors
+        queue.addAll(getNeighbors(p, initColor));
+    }
+        
+}
+Set<Point> getNeighbors(POint p, int color){
+    
+    
+}
+    
+// Given an infinite number of quarters (25 cents), dimes (1 O cents), nickels (5 cents), and
+// pennies (1 cent), write code to calculate the number of ways of representing n cents.
 
+// ways[n] = ways[n-1] + ways[n-5] + ways[n-10] + ways[n-25];    
 
+int getWays(int N){
+    
+    int[] ways = int[N+1];
+    //Alternative use Map<Integer, Integer> ways = new HashMap<>();
+    
+    ways[0] = 1; // when the target value is the value os a given coin
+    ways[1] = 1;
+    
+    for (int val = 2; val <=N ; val++){
+        int newWays = ways[val-1]; // initialize with adding one coin to previous
+        if( val >= 5){
+            newWays += ways[val-5];
+        }
+        if( val >= 10){
+            newWays += ways[val-10];
+        }
+        if( val >= 25){
+            newWays += ways[val-25];
+        }
+    }
+    return ways[N];
+        
+    
+    
+    
+    
+    
