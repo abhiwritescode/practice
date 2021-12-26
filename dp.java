@@ -371,6 +371,60 @@ int getWays(int N){
         
     
     
+//eight queens on an 8x8 chess board so that none of them share the same row, column, or diagonal.
+
+class Cell{int row; int column;}
+    
+queue of occupied cells list - > call next row occu
+    
+class Combo {
+    Set<Cell> occupied;
+    boolean feasible;
+    add(Cell cell);
+}
+
+// All indexes rows and columns are 1 based    
+void arrange(List<Cell> occupied){
+    // occupation always starts from row 1, 2 dwnwrdas
+    Queue<Combo> combos = new Queue<>();
+    Set<Conbo> completed = new HashSet<>();
+    
+    //fill for first row
+    for (int col = 1..8){
+        combos.offer(new Combo(ImmutableSet.of(new Cell(1,col)));
+    }
+    while(!queue.isEmpty()){
+        
+        Combo combo = queue.poll();
+        // Get the next fea
+        int nextRow = combo.getOccupied().size() + 1;
+        for (int col = 1..8){
+            Cell nextCell = new Cell(nextRow, col);
+            if (!violates(combo.getOccupied(), nextCell)){
+                Combo newCombo = new Combo(ImmutableSet.newBuilder()
+                                           .addAll(combo.getOccupied())
+                                           .add(nextCell)).build()));
+                if (combo.getOccupied().getSize() == 8){
+                    completed.add(combo);
+                } else {
+                    combos.offer(combo);
+                }
+            }
+        }
+    }
+    return completed.size();
+                     
+}
+    
+boolean violates(Set<Cell> occupied, Cell newCell){
+    return occupied.stream()
+        .filter(occupiedCell -> occupiedCell.getRow() == newCell.getRow()
+                || occupiedCell.getColumn() == newCell.getColumn()
+                || Math.abs(occupiedCell.getColumn() - newCell.getColumn())
+                 == Math.abs(occupiedCell.getRow() - newCell.getRow()))
+        .anyMatch();
+}
+    
     
     
     
