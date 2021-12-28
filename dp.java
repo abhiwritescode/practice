@@ -426,5 +426,137 @@ boolean violates(Set<Cell> occupied, Cell newCell){
 }
     
     
+///  stack of n boxes, with widths w1 , heights hi , and depths di
+// stacked on top of one another if each box in the stack is strictly
+// larger than the box above it in width, height, and depth. Implement a method to compute the
+// height of the tallest possible stack                     
+
+// dont start witj greedy algo, try each combo
+// sort by wi 
+// maxstack[wi]
+//          assume sorted by one dimen - Wi, W1 being smallest
+
+class Box {int width; int height; int depth;}
+class BoxStack{
+    Box base;
+    Set<Box> boxes ; 
+    int getHeight(){
+        int sum=0;
+        boxes.stream().forEach(box -> sum+=box.height;);
+    }
     
+    BoxStack(Box box, BoxStack stack){
+        
+        base = box;
+        boxes = ImmutableSet.newBuilder().addAll(stack.getBoxes()).add(box).build();
+    }
+}
+                     
+                     
+int getMaxHeight(Collection<Box> boxes){
     
+    Collections.sort(boxes);
+    int N = boxes.size();
+    
+    BoxStack[] stacks = new BoxStack[N]; // Use as a 1-based index map
+    stacks[0] = new BoxStack(boxes.get(0));
+
+    // Initialize W1
+
+    for (int W = 1; W <N){ // box under
+        for (int = 0 ; U < W; U++){
+            if (canFit(stacks[U], boxes.get(W))){
+                stacks[W] = new BoxStack(boxes.get(W),  stacks[U]);
+            }
+        }
+    }
+                     
+                     
+    return new PriorityQueue<BoxStack>({ new Comparator<BoxStack> ({
+        (stack1, stack2) -> INteger.compare(s1.getHeight(), s2.getHeight());
+    }).poll();
+}
+
+boolean canFit(BoxStack){
+}
+                                       
+// boolean expression consisting of the symbols 0 (false), 1 (true), &
+// (AND), I (OR), and /\ (XOR), and a desired boolean result value result, implement a function to
+// count the number of ways of parenthesizing the expression such that it evaluates to result
+
+                                       
+// countEval("l/\01011", false) -> 2
+// countEval("0&0&0&1All0", true)-> 10
+    
+String be;
+Set<String> falses = new HashSet<>();                                       
+Set<String> trues = new HashSet<>(); 
+Map<String, Boolean> beToValue = new HashMap<>();                                       
+Map<String, Integer> falseCnt = new HashMap<>();
+Map<String, Integer> trueCnt = new HashMap<>();
+                                       
+                                       Map
+// init all indiviausl 
+for ( int i = 1; i<be.length() ; i+=2){
+    beToValue.put("" + be.charAt(i) , i == 1 );   
+}
+for (int S = 0..N-1, S+=2)
+    for (int E = S+2..N-1, E+=2)
+        for (int M = S+1..N-2; M+=2){
+            //starts at be[S] to be[M-1] 
+            cond1 = be.substring(S,M-1);
+            cond2 = be.substring(M+1,E);
+            oper = be.charAt(M);
+            String expressn = be.substring(S,E-1);
+            int newfalseCnt = getFalseCnt(cond1, oper, cond2);
+            Integer currFalseCnts = falseCnt.get(expressn);
+            if(currFalseCnts == null ){
+                currFalseCnts = 0;
+            }
+            // Add to main map for new expression.
+            falseCnt.put(expressn, currFalseCnts + newfalseCnt);
+
+            int newtrueCnt = getTrueCnt(cond1, oper, cond2);
+            Integer currtrueCnts = trueCnt.get(expressn);
+            if(currtrueCnts == null ){
+                currtrueCnts = 0;
+            }
+            trueCnt.put(expressn, currtrueCnts + newtrueCnt);
+          
+            
+            
+Expression[][] expressions = new Expression[N+1]N+1];
+                                       
+                                       
+for ( int S=0;S<N;S++){ //start index
+    for (int E=S; E<N; E++) {//end index
+        for (int M=S; M<=E; M++){ // break - will be after M
+            
+                                       
+                                       
+List<Character> positions;
+populate with ( ' ' and )
+                                       
+class Combo{
+    List<Character> occupied = new ArrarList<>();
+    boolean infeasible;
+    boolean matches;
+    boolean complete;
+    add(Character char){...}
+    //const
+    Combo(List<Character> occupied,Character char){...}
+    Combo(Character char){...}
+}
+                                       
+Queue<Combo> inflight;                                       
+queue.offer                                       
+                                       
+while(){
+    combo = queue.poll();
+    combo.add(' ');
+                                       
+                                       
+                                       
+
+                                       
+                                       
