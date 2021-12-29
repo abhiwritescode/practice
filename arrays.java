@@ -257,4 +257,108 @@ int[] paekify(int[]A){
             
 
         
+// o reorder its entriesso that the even entries appear first.
+
+// iterate over array till first odd 
+/**
+
+int firstodd = -1 if none else index
+int curri
+if curri is even and firstodd < curri , swap
+
+                2    6   5   8   4   2   9   9   7   3   
+               
+curri.     0        1    2   3   4   5   6   7   8   9    10   
+firsto     0        1       3    4   5               9                
+array 
+*/
+int[] evenfirst(int[] A){
+    
+    int curri=0;
+    int firsto = -1;// none
+    while(isEven(A[curri])){
+         curri++;
+    }
+    // need to init firsto
+    if (curri < A.length)
+        firsto = curri;
+    
+    while(curri <A.length){
+        
+        if(isEven(A[curri]) && firsto >=0 && firsto< curri){
+            // there is an odd number at a lower index, swap
+            swap(A, curri, firsto);
+            // move firsto to next odd which is curri since we justy swapped
+            while(isEven(A[firsto]))
+                firsto ++;
+            //firsto = curri;
+        }
+        curri++;
+//         if(curri>=A.lenght){
+//             return;
+//         }
+    }
+    
+}
+
+
+//t all elements less than A[i] (the "pivot") appear first, followed by elements equal to the pivot, followed by elements greater than the pivot.
+
+/**
+
+lastp - last index >= pivot
+curri -> current index
+curri = lastp - jump to lastp since all lower are small
+if curri < pivot, swap and lastp = curri
+curri continue scanning for smaller values
+
+pv=6
+                    2    5   4   3   6   6   9   9   7   8 
+  lastp                 1    2   3                                          
+  curri                      2   3   4   5   6   7   8   9                                     
+*/
+
+
+
+int[] dutch(int[] A, int p){
+
+    int lastp = 0; // last value >= pivot
+    while (A[lastp] < pv)
+        lastp++;
+    //lastp now points to a value >=pv 
+    
+    int curri = lastp+1; // start with the next index.
+    
+    while (curri < A.length){
+        if (A[curri] < pv && lastp < curri){
+            //swap with 
+            swap(A, curri, lastp);
+            //lastp now has the snall value and curri has the new larger
+            // move lastp to the next larger value which is at curri
+            while(A[lastp]<pv && lastp < A.length)
+                lastp++;
+        }
+        curri++;
+    }
+    // All small values are now on the left and the right has larger or equal values.
+    // next scan from right and see move large values to back
+    // the first non-small value is at lastp (eqaul or larger) 
+    // neeed to rearange from lastp to end of A, leavbg 0 to lastp-1 untouched.
+    
+    int lastl=0;//large value 
+    while (A[lastl] <=pv)
+        lastl++;
+    //lastk now points to value greater than pv
+    curri = lastl;
+    while (curri < A.length){
+        if (A[curri] == pv && lastl < curri){
+            swap(lastl, curri); // large value moved to curri and equal value moved to lastl
+            lastl=curri;
+        }
+        curri++;
+    }
+        
+    
+    
+}
 
