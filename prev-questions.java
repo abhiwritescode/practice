@@ -108,3 +108,78 @@ Node findCommonParent(Node root, int val1, int val2){
   return null;
   
 }
+
+
+// check mathicn brackets
+
+/** put diff bracket ytpes on a stack.
+when a closing bracket comes in , it shd match an openning on on the top of the stack
+*/
+
+
+boolean matches(String S){
+  
+ 
+  Stack<Character> stk = new Stack<>();
+  for(Chracter c: S.charSet()){
+    
+    if(isOpening(c)){
+      stk.push();
+    }
+    if(!isBracket(c)){
+      continue;
+    }
+    if(isClosing(stk.peek(), c)){
+      stk.pop();
+    } else {
+      return 0;
+    }
+  }
+  return stk.isEmpty() ? 1 : 0;
+}
+
+boolean isOpening(Character opening){
+}
+
+boolean isClosing(Character opening, Character closing){
+  
+  
+  
+  
+  
+}
+
+
+// substrig of size K with only one repeating character
+// take eacvh substring and scan - O(Nk)
+
+List<String> substrs(String S, int K){
+  Set<String> output = new HashSet<>();
+  for ( int i=0; i<S.length-K; i++){
+
+    String subs = S.substring(i,K);
+    if( qualifies(subs)){
+      output.add(subs);
+    }
+  }
+}
+
+boolean qualifies (String sub){
+  Map<Character, Integer> map = new HashMap<>();
+  boolean dupeFound = false;
+  for (Character c: sub){
+    Integer count = map.get(c);
+    if (count == null){
+      count = 0;
+    }
+    count+=1;
+    if ( count >1){
+      if (dupeFound )
+        return false;
+      else 
+        dupeFound = true;
+    }
+    map.put(c, count++);
+
+  }  
+}
