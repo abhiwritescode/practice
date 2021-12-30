@@ -362,3 +362,148 @@ int[] dutch(int[] A, int p){
     
 }
 
+
+//possible to advance tyo end of array
+
+//for a given position i, check if A[i]>0, if possible to advance from i+1 to i+A[i]
+// if i == A.len -1 then yes
+
+/*
+
+(need to reach 6)
+   A         3    2    5    1    0    4    2 
+   canR      3    4    7    4    4    9    8        
+needI   6    0    1    2    3    4    5    6                
+curri   6    0    1    2    3    4    5    6                
+
+3  3  7  4. 4. 7. 7
+3 5 10 11 11 15 17
+*/
+
+boolean canAdvance(int [] A){
+
+    int[] canReach = new int[A.length];
+    for ( int i = 0;i< A.length; i++){
+        canR[i] = i + A[i];
+    }
+    // find first canR >= A.length-1;
+    int needI=A.lrngth-1;
+    int curri=A.length-1
+    while (curri > 0){
+        
+        if (canR[curri] >= needI)
+            needI = curri;
+        
+        curri--;
+    }
+    
+    if (needI > 0)// not reachable
+        return false;
+    
+    return true;
+}
+
+
+// DELETE DUPLICATES FROM A SORTED ARRAY
+// 2  3 ,5,5,7,11,11,11,13 and pad zeroes at the end
+
+
+/*
+          0  1   2   3   4    5    6    7     8
+          2  3   5   7   11   13   11   11   13
+curri     0  1   2   3   4                         
+nexti     1  2   4   5   8                                                   
+
+1. nexti -> move to diff from A[curri]
+2  if nexti > curri + 1 copy (A, nexti, curri+1) 
+3 curri ++
+4 if nexti >=A.length-1 curri is the last, fill ) after curri ELSE go to step 1 
+
+*/
+
+int[] deleteDupes(int[] A){
+    
+    int curri = 0;
+    int nexti =0;
+    while (nexti < A.length ){
+        
+        while(A[nexti] == A[curri] && nexti<A.length)
+            nexti++;
+        
+        if(nexti>curri+1)
+            copy(A,nexti, curri+1);
+        
+        curri++;
+        
+        if ( nexti >= A.length-1)
+            break;
+        
+    }
+    // fill 0s
+    for (int i = curri + 1; i<A.lrngth; i++)
+        A[i] = 0;
+    
+    return A;
+}
+
+
+//All prime numbers to n.
+int[] primes(int N){
+    
+    Boolean[] isPrime = new Boolean[N];
+    
+    for (int i = 2 ; i <= sqrt(N) +1 ; i++){
+        for (j=2;j<=sqrt(N)+1;j++){
+            isPrime[i*j] = true;
+        }
+    }
+    List<INteger> count = Arrays.stream(isPrime).filter(val -> val).collect(toList());
+}
+
+
+//get all permutatiosn
+
+List<List<Integer>> getPerms(List<Integer> arr){
+    
+    if(arr.size() ==1){
+        return List.of(new LinkedList<Integer>(arr));
+    }
+    List<List<Integer>> responsePerms = new ArrayList<>();
+    List<List<Integer>> perms = getPerms(new LinkedList<Integer>(arr.subList(0, arr.size()-1)));
+    int toInsert = arr.get(arr.size()-1);
+    for ( LIst<INteger> aPerm : perms){
+        for ( int i = 0 ; i<=aPerm.size(); i++){
+            List<Integer> newPerm = new LinkedLIst<>(aPerm);
+            newPerm.add(i, toInsert);// weave in at each location from 0 to n
+            responsePerms.add(newPerm);
+        }
+    }
+    return responsePerms;
+}
+
+
+// compute pascals triangle for N rows
+/* List for row i (0 based) = length(i=1)
+A[0] = Aprev[0]
+A[i] = Aprev(i-1] + Aprev[i] for i=1..Aprev.lenght-2
+A[A.size()-1] = Aprev[Aprev.size()-1]
+*/
+List<List<Integer>> getPascal(int N){
+    List<List<Integer>> result = new ArrayList<Integer>(N);
+    result.add(List.of(1));
+    
+    for (int i = 1; i< N -1;i++){
+        List<Integer> Aprev = result.get(i-1);
+        List<Integer> Anew = new ArrayList<>(i+1);
+        Anew.add(1);
+        for ( int j = 1; j< Aprev.length; j++){
+            Anew.add(Aprev.get(i-1) + Aprev.get(i));
+        }
+        Anew.add(Aprev.get(Aprev.length-1));
+        result.add(Anew);
+    }
+    return result;
+}
+
+
+
