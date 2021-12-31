@@ -183,3 +183,80 @@ boolean qualifies (String sub){
 
   }  
 }
+
+
+// Longest subsequence contains all 
+class SubSeq implements Comparable{
+  int start;
+  int end;
+  int compareTo(CubSeq s){
+    return Integer.compare(this.start, s.start);
+  }
+}
+
+List<Integer> getSubSequenceCount(String S){ //n log n
+  
+  Map<Character, List<Integer>> charToIndex = getCharToIndex(S); // O(n)
+  //iterate thru entries 
+  
+  Map<Character, SubSeq> charToSubSeq =  // O(n)
+  charToIndex.entrySet().stream()
+    .collect(entry-> entry.getKey() , 
+             entry -> { 
+               List<Integer> entries = entry.getValue();
+               return new SubSeq(entries.get(0), entries.get(entries.size() - 1));
+             });
+  
+
+  //sorted set by start time
+  //Set<Subseq> subseqs = new TreeSet<SubsSeq>(charToSubSeq.entrySet()); // n log n
+  
+  Set<SubSeq> result = getSequenced(new PriorityQueue<SubsSeq>(charToSubSeq.entrySet())); // O(n)
+  
+  return result.stream()
+    .map(set -> set.size())
+    .collect(toList());
+  
+  
+  
+}
+
+Set<SubSeq> getSequenced(PriorityQueue<Subseq> subseqs){
+  
+  Set<SubSeq> result = new TreeSet<>();
+  SubSeq currSeq = subseqs.poll();
+  
+  while(!subseqs.isEmpty()){. // O(n)
+    SubSeq nextSeq = subseq.poll();
+    if (currSeq.end > nextSeq.start){//overlaps
+      SubSeq merged = new SubSeq(currSeq.start, nextSeq.end);
+      currSeq = merged;
+    } else {// no overlap
+      result.add(curSeq);
+      currSeq = nextSeq;
+    }
+    
+    
+  }
+  result.add(curSeq); // add the last remaining seq
+  
+  
+}
+  
+  
+
+Map<Character, List<Integer>> getCharToIndex (String S){
+
+  Map<Character, List<Integer>> charToIndex = new LinkedHashMap<>();
+
+  for (int c = 0 ; c< S.length; c++){
+    Chracter atC = S.getCharAt(c);
+    
+    List<Integer> indices = charToIndex.get(atC);
+    if (indices == null)
+      indices = new ArrayList<>();
+    indices.add(c);
+  }
+  return charToINdex;
+  
+}
