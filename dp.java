@@ -1,3 +1,262 @@
+//find the maximum sum over all subarrays of a given array of integer
+
+/**
+Use Dp
+store 
+int[][] - sum[start][end]
+
+for i= 0..len-1
+  for L=1..< len -i  
+    start=i
+    end = i+L-1
+    sum[start][end]= A[start] + sum[start+1, end]
+
+
+*/
+
+
+int getMaxSum(int []A){
+    
+    int[][] sums = new int[A.length][A.length];
+    // initialize
+    int max = INteger.MINVALUE;
+    for ( int i = 0; i< A.length; i++){
+        sums[i][i] = A[i];
+        if (sums[i][i] > max)
+            max = sums[i][i];
+    }
+    
+    
+    for ( int i = 0; i< A.length; i++){
+        for ( int L = 2; L<A.lrngth - i ; L++){
+            start = i;
+            end = i+L-1;
+            sums[start][end] = A[start] + sums[start+1][end];
+            if (sums[start][end] > max)
+                max = sums[start][end];
+
+        }
+    }
+    return max;
+}	
+
+//2, 3, and 7 point plays the number of combinations of plays that result in the finalscore
+
+/*
+
+p[0]=0
+p[1]=0
+p[2]=1
+p[3]=1
+
+for (i = 1..P)
+   p[i] = i>=2 ? p[i-2] + 1
+      +   i>=3 ? p[i-3] + 1
+      +   i>=7 ? p[i-7] + 1
+*/
+
+int getPlays (int score){
+    // init 
+    int[] plays = new int[score+1];
+    plays[0]=0;
+    plays[1]=0;
+    
+    for ( int i = 1; i<=score; i++)
+      plays[i] = i>=2 ? plays[i-2] + 1
+      +   i>=3 ? p[i-3] + 1
+      +   i>=7 ? p[i-7] + 1;
+}
+
+
+// Get play combos only ( like bin fulling)
+/*
+plays[i] = {2 3 7}
+i= 0.. plays -1
+score[j] = all possible scores
+    
+ways[i][j] -> ways to get score j with the upto i plays
+
+S = score
+for i = 0.. plays-1
+for j=0 .. S
+  if plays[i] <= j ways[i][j] is possible = ways[i][j-plays[i]]	  
+                    + ways without ways[i-1][j]
+  else             not posisble  = ways[i-1][j]
+
+
+for i= 0..plays-1 
+    for j=1
+      ways[i][j] = 0 i.e. ways[0,0] 
+      ways[0,0][1,0][2,0] = 1
+      ways[0,1][1,1][2,1] = 0
+i = 2 3 4 
+j = 1 2 3 4 5 6 7 8 9 10
+
+0,1 ways[2][1] = ways [1][1] -> 0
+0,2 ways[0=2][2] = = ways[0][0]= 1
+0,3 ways   possible  ways[0=2][3-2] = ways[0][1] = 0
+0,4 way  possible  ways[0=2][4-2] = ways[0][2] =1 
+0,5 way  possible  ways[0=2][5-2] = ways[0][3] =0
+
+1,1 ways[1=3][1] = ways [1][1] -> 0
+1,2 ways[1=3][2] = not possnle -> ways[0,2] = 1
+1,3 ways   possible  ways[1=3][3-3] = ways[0][0] = 1
+1,4 way  possible  ways[1=3][4-3] = ways[1][1] =1 +  
+
+to find wways, add the one with out ways
+
+values[i] {2 3 7}
+scores[j] 1 2 3 4 5 6 7 8 
+max[i,j]
+ways[i,j]
+for i = 0..values-1
+    for j= 0.. scores-1
+        
+        ways [i,j] = if j is possible with values[i] i.e. j>= values[i] 
+                        ways[i , j - values[i]] - < with play of 3 to get to score -3 
+                        
+                        + without play of 3 to get to score 
+                        
+                        
+        for optimal value
+          max [i,j] = if j is possible then
+                    value of max[i-1 , j] i.e. without ith item
+                    or value of max[i-1, j- value[i]] + value[i]
+        
+
+
+*/
+
+
+
+// levensteoin distance
+/*
+String A String B
+
+dist(A, a, B, b){
+    if 
+
+    if (A[a] != B[b]){
+        dist = 1 + min(
+            dist(A, a+1, B,b+1),
+            dist(A, a, B,b+1),
+            dist(A, a+1, B,b));
+      } else {
+        dist - dist(A, a+1, B, b+1);
+*/
+
+
+
+int distance(Srting strA, String strB){
+    
+    char [] A = A.ticharArray();
+    char [] B = B.ticharArray();
+    int dist[][] = new int[A.length -1][B.length -1];
+    
+    dist[0][0] = A[a] == B[b] ? 0 ; 1;
+     for ( int a= 0; a< A.length ; a++){
+        for (int b = 0; b< B.length; b++){
+            dist[a][b] = MAXVALUE;
+        }
+     }
+    
+    for ( int a= 0; a< A.length ; a++){
+        for (int b = 0; b< B.length; b++){
+            if (A[a] == B[b])
+                dist[a][b] =  dist[max(0,a-1)][max(0,b-1)];
+            else {
+                int dist01 = dist[a][max(0,b-1)];
+                int dist11 = dist[max(0,a-1)][max(0,b-1)];
+                int dist10 = dist[max(0,a-1)][b];
+                dist[a][b] = 1+  min(dist01, min(dist11, dist10));
+            }
+        }
+    }
+    return dist[A.length - 1][B.length-1];
+}
+
+/*
+
+A: cat
+B: cbt
+
+0 0 : 0
+0 1 : d01 = 0 d10 = 0 d11 = 0 -> 1
+0 2 : c!=t d01=[0 1] = 1  d11=[0 1] = 1 d10 = [02] =MAX -> 1+1 = 2
+1 0 : != d01=[10] = MAX  d11 = [00] = 0 d01=[10] = MAX -> 1+0 = 1
+1 1 : != d01=[10] = 1 d11=[00] = 0 d10=[01] = 1 = 0 -> 1+0 = 1
+1 2 : != d01=[11] = 1 d11=[01] = 1 d10[02] = 2 -> 1+1= 2
+2 0 : != d01=[20] = MAX  d11=[10] = 1 d10=[10] = 1 -> 1+1=2
+2 1 : != d01[20] = 2 d11[10] = 1 d10=[11] = 1  -> 1+1=2
+2 2 :==  d11 = 1
+
+
+
+*/
+
+//, if is "gtaa" and s2 is "atc", then "gattaca" and "gtataac" can be
+//formed by interleaving s2 and s2 but "gatacta" cannot. Design an algorithm that takes
+//as inputstringsslr s2 and t,and determinesif t is an interleaving of and s2.
+/*
+
+
+gtataac ? gtaa atc
+
+gtataa ? gtaa,at 
+  -> gtata ? gta,at 
+  -> gtat ? gt , at
+  -> gta  ? g, at OR gta  ?gt,a
+  -> false OR gt ? gt, ""
+  -> 
+
+T, A, a , B , b
+
+if ( A[a] == B[b] ) 
+
+bool[][] isweavw
+if A[0] != T[0] && B[0] !=T[0]
+    return false;
+
+Check [0,0] = 
+
+for Tl = 1...T.len-1
+  for a= 0.. (len of A)
+     b= TL - a -1
+     
+     T[TL] = T[TL-1] ? A[a],B[b-1] || A[a-1],B[b]
+
+*/
+
+
+boolean isWeave(String strT, String strA, String strB){
+    
+    char[] T = strT.toCharArray();   
+    char[] A = strA.toCharArray();   
+    char[] B = strB.toCharArray();   
+    
+    boolean isWeave[][] = new int[A.len+1][B.len+1];
+    isWeave[0][0] = true; //base init
+    
+    for (int tl = 1; tl<=T.length; tl++){
+        for (int al=0; al<=A.length; al++){
+            int bl = tl-al;//length os b
+            
+            if (((bl > 0 &&  B[bl-1] != T[tl-1])|| bl<=0) 
+                
+                && (( al > 0 && A[al-1] != T[tl-1]) || al <=0)){
+                isWeave[al][bl] = false;
+                continue;
+            }
+                        
+            isWeave[al][bl] = ( bl > 0 && B[bl-1] == T[tl-1] && isWeave[al]bl-1])
+                           || ( al >0 && A[al-1] == T[tl-1] && isWeave[al-1][bl]);
+        }
+    }
+    return isWeave[A.length][B.length];
+}
+
+
+
 //grid with r rows and c columns.
 //The robot can only move in two directions, right and down, but certain cells are "off limits
 //find a path for the robot from the top left to the bottom right. 
