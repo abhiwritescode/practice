@@ -122,3 +122,125 @@ void populateCharToINdex(char[] S){
     }
 }
 
+
+
+// 4sum
+
+/**
+
+Hasmap - index to value from value to index
+findsum(int[] A, int start, int T, int num)
+DP - 4 sum with i = 3 sum of findsum(A, i+1, T-A[i], 3)
+forces consecutieve indices
+
+nums = [1,0,-1,0,-2,2], target = 0
+
+Take a running sum ?
+sums = [1 1 0 0 -2 0]
+
+hashmap - sum of 1 stadalone
+create hasmap with 2 sums o(n2)
+iterate over the hasmap and look up k-V
+*/
+
+List<List<Integer>> get4sums(List<Integer> A, int target){
+   //Map<Integer, INteger> oneSums= getOneSum(A);
+   Map<Integer, List<Integer>> twoSums = getTwoSum(A); //O(n2)
+   
+   // iterate over each two Sum
+   
+   return twoSums.entrySet().stream()
+      .map(entry -> {
+         int twosum = entry.getKey();
+         List<Integer> twoINdexes = entry.getValue();
+         List<Integer> twoOthers = twoSums.get(atregt - twosum);
+         if (twoOthers == null ){
+            return ImmutableList.of();
+         } else {
+            return ImmutableList.newBuilder()
+               .addAll (twoINdexes)
+               .addAll(twoOthers));
+         }
+      })
+      .filter(list -> !list.isEmpty())
+      .collect(toImmutableList());
+}
+
+Map<Integer, INteger> getOneSum(List<Integer> A){
+
+   Map<Integer, INteger> aMap = new HashMap<>();
+   for ( inti = 0; i < A.size() ; i++){
+      aMap.put(A.get(i), i);
+   }
+   return aMap;
+}
+Map<Integer, List<Integer>> getTwoSum(List<Integer> A){
+
+   Map<Integer, List<Integer>> aMap = new HashMap<>();
+   for ( inti = 0; i < A.size() ; i++){
+      for ( int j = 0; j < A.size() ; j++){
+      aMap.put(A.get(i) + A.get(j), ImmutableList.of(i,j));
+   }
+   return aMap;
+}
+}
+
+
+//Merge k Sorted Lists
+
+
+/*
+Keep a minheap of k element, top of each list
+when size is K, 
+   remove one
+   replace from same list where the removed element was from
+
+*/
+
+class Element{
+   int value;
+   int listI;
+}
+
+List<Integer> merge(List<LinkedList<Integer>> lists){
+ 
+
+   PriorityQueue<Element> heap = getHeap(lists);
+   LinkedList<Integer> result = new LinkedList<>();
+   
+   while (!heap.isEmpty()){
+      Element top = heap.poll();
+      result.offer(top.getValue());
+      
+      LinkedList<Integer> list = lists.get(top.getlistI())
+      if (!list.isEmpty()){ 
+         //replace from same list if available
+         int nextValue = list.poll();
+         heap.offer(new Element(nextValue, top.getlistI()));
+      }
+   }
+   return result;
+}
+
+PriorityQueue<Element> getHeap(List<LinkedList<Integer>> lists){
+   int lCnt = lists.size();
+   PriorityQueue<Element> heap = new PriorityQueue<>(new Comparator<Element>(){
+      int compare(Element e1, Element e2){
+         return Integer.compare(e1.value, e2.value);
+      }
+   });
+   
+   for ( int i = 0 ; i< lists.size(); i++){
+      heap.offer(new Element(list.poll(), i));
+   }
+   return heap;
+}
+
+   
+   
+   
+
+
+
+
+
