@@ -1,3 +1,25 @@
+//REMOVE DUPLICATES FROM A SORTED linked LIST
+
+class Node{
+    int value;
+    Node next;
+}
+Node removeDupes(Node head){
+ 
+    Node curr = head;
+    while (curr.next != null){
+        
+        if(curr.value == curr.next.value){
+            curr.next = curr.next.next;
+        } else {
+            curr = curr.next;
+        }
+    }
+    return head;
+    
+}
+
+
 //Given array of heights find the max water volume that will fit between
 
 /* 
