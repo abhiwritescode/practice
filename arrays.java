@@ -528,4 +528,125 @@ List<List<Integer>> getPascal(int N){
 }
 
 
+// Compute the maximum water trapped by a pair of vertical lines
 
+/*
+
+int mins[][] -> min[i][j] = min(A[i], A[j])
+
+for ( int i = 0..n-2)
+    for (int j=i+1..n-1)
+       Water = min(A[i], A[j]) * (j-i)
+       
+       
+ 2 4 3 6 9 5 11 4
+ i=2 j=4 -> 
+ i=
+ 
+ 
+ i=0 j=n-1
+ max = A(i,j)
+ 
+if (A[i] < A[j] )
+    move i++ till higher A[i]
+else 
+    move j-- till higher A[j]
+ if (A(i,j) > max
+    new max
+*/
+
+int getMaxWater(int[] A){
+    int i=0;
+    int j = A.lrngth -1;
+    
+    int max = calcArea(A, i, j);
+    while (i<j){
+        if(A[i] < A[j]){
+        int iVal = A[i]
+            while(A[i+1] < iVal && i+1 < j)
+                i++;
+        } else {
+            int jVal = A[j]
+            while(A[j-1] < jVal && i+1 < j)
+                j--;
+        }
+        max = Math.max(max,  calcArea(A, i, j));
+        
+    }
+    
+}
+            
+// Compute the largest rectangle under the skyline
+/*
+n3
+Stack 
+add ony if less then peek (top of stakc)
+
+maxA
+for L=2..n
+    for i=0..n-L
+        j = i+L-1
+        if L ==2
+            min[i][j] = min(Ai, Aj)
+            maxA - max(max
+        else
+            min[i][j] = min(min[i][j-1], Aj)
+            
+            
+        
+
+*/
+
+int getmaxArea(int [] A){
+    int[][] mins = new int[A.length][A.length];
+    int maxArea = 0;
+    
+    for ( int L = 2; L<=A.length; L++){
+        for (int i = 0; i<= A.length - L ; i++){
+            int j = i+L-1;
+            if (L==2){
+                min[i][j] = Math.min(A[i], A[j]);
+                maxArea = Math.max(maxArea, (j-i) * min[i][j]);
+            } else {
+                min[i][j] = Math.min(A[j] , min[i][j-1]); // lower of curr index and array ending at prev index
+                maxArea = Math.max(maxArea, (j-i) * min[i][j]);
+            }
+        }
+    }
+    return maxArea;
+}
+
+
+// Improve with a stack
+int getmaxArea(int [] A){
+    Stack<Intgeger> stk = new Stack<>();
+    
+    for ( int i =0 ; i< A.length ; i++){
+        if ( stk.isEmpty()){
+            stk.push(i);
+            continue;
+        }
+        
+        if ( A[i] == A[stk.peek()]){
+            stk.pop();
+            stk.push(i); // if equal replace with current index
+        }
+        
+        while ( !stk.isEmpty() && A[i] < A[stk.peek()]){
+            int ht = A[stk.pop()];
+            int wid = 
+                       
+                       
+            
+            
+
+                
+                
+             
+    
+
+
+
+
+    
+    
