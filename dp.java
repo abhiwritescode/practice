@@ -1,3 +1,104 @@
+//rod cutting with cost c
+/*
+
+rev[1] = p[1]
+
+For L = 2  n // length
+  for i=1..L // lenght of first cut
+     rev = i = L ? p[L] :  p[i] - C + rev[L-i];
+     rev[i] = max(rev[i], rev)
+    
+
+
+*/
+
+
+// Matrix multiply
+/*
+
+class mat{ row, col}
+
+int mul (mat[] M)
+
+for i=1..N-1
+    for j=i..N-1
+        for c= i..j
+            // cost for multiplying chain from i to j with split at c
+            cost1 = cost[i..c] + cost [c+1..j] + multiply (rows[i] * cols[c] * cols[j]
+            cost[i..j] = min (cost[i..j] , cost1)
+        
+for (L = 1.. N) // chain length
+    for i
+    for c = 1..L-1
+
+*/
+
+
+// longest common substring (not sub sequence)
+
+/*
+n3
+
+each substring of the shorter 
+for i=0..n-1
+    for j=n-1..i
+       
+
+*/
+
+//Longest palindrome subsequence
+/*
+NOt substring 
+
+given the input character, your algorithm should return carac
+
+
+start with len 2
+for i=0..n-2
+    for j=i+1,n-1
+
+ longest [i,j] = len os longest startoing i to j
+  longest [i,j] = if Ai== Aj -> 2+ longest[i+1, j-1]
+                  else.      -> max(longest[i,j-1] or longest[i+1, j] 
+
+*/
+
+int longest(String S){
+
+    // store longest from i to j
+    // Alternatove to use a Map<Pair<Integer, Integer> , Integer> , 
+    // but consciouly using prmitive array for code simplicity.
+    int[][] longest = new int [S.length][S.length];
+    
+    // initialize for len 1 and 2
+    for ( int i = 0; i< S.length; i++)
+        longest[i][i] = 1;
+    for ( int i = 0; i< S.length - 1; i++)
+        longest[i][i+1] =  C[i] == C[i+1] ?  2 : 1;
+    
+    char[] C = S.getCharArray();
+    
+    // start scan for length of 3
+    for (int i=0;i< S.lenght -2; i++){ // O(n^2)
+        for ( int j= i+2 ; j< S.length ; j++){
+            int maxlen = 0;
+            if (C[i] == C[j]){
+                maxlen = 2+ longest[i+1][j-1];
+            } else {
+                maxlen = Math.max(longest[i+1][j], longest[i][j-1]);
+            }
+            longest[i][j] = maxlen;
+        }
+    }
+    return longest[0][S.lenght-1];
+}
+            
+            
+    
+    
+
+
+
 //find the maximum sum over all subarrays of a given array of integer
 
 /**
