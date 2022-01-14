@@ -1,4 +1,52 @@
 
+// Create a heap from array
+/*
+
+for i = 0..n/2
+i=0
+Queue<NOde> que = new Queue<>();
+Node root = new Node(A[i], i)
+que.offer(root);
+
+while( !que.isEmpoty() ){
+    Node n = q.get();
+    int lefti = n.index * 2 + 1;
+    int rgti = n.index * 2 + 2;
+    
+
+    
+*/
+class Node {int val;
+            int index;
+            Node left;
+            Node rgt;
+           }
+Node heapify(int[] A){
+    Queue<NOde> que = new Queue<>();
+    Node root = new Node(A[i], i)
+    que.offer(root);
+    
+    while( !que.isEmpoty() ){
+        Node n = q.get();
+        int lefti = n.index * 2 + 1;
+        int rgti = n.index * 2 + 2;
+        if (lefti < A.length){
+            Node left = new Node(A[lefti], lefti);
+            n.left = left;
+            que.add(left);
+            
+        }
+        if (rgti < A.length){
+            Node rgt = new Node(A[rgti], lefti)
+            n.rgt = rgt;
+            que.add(rgt);
+        }
+    }
+
+    
+}
+        
+        
 //  Insert into a Binary Search Tree
 //You are given the root node of a binary search tree (BST) and a value to insert into the tree. 
 // Return the root node of the BST after the insertion. 
