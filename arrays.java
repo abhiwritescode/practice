@@ -1,3 +1,111 @@
+//Compute the intersection of two sorted arrays
+/*
+input is (2,3,3,5,5,6,7,7,8,12} and (5,5,6,8,8,9,10,10), your output
+should be (5,6,8)
+step - check if interseting
+if A[0] <= b[0]
+  // start serach with b[0] in A
+  search (A, B)
+else
+    // start serach with A[0] in B
+  search (B, A)
+
+search(A, B){
+result
+lastA=0;
+bi=0
+while(B[bi] <=A[n-1]){
+  ai = find(B[i], A, start=lastA) binary search
+  if ai >= 0 : lastA = ai; result.add(B[i])
+}
+}
+
+// binary
+find(val , A, startA){
+mid =
+
+}
+
+*/
+
+List<Integer> findInterset(List<Integer> listA, List<Integer> listB){
+    
+    int[] A = listA.toArray(new int[listA.size()]);
+    int[] B = listB.toArray(new int[listB.size()]);
+    Set<Integer> result = new HashSet<>();
+    
+    int i =0 ;
+    int j = 0;
+    while(i< A.length && j < B.length){
+        while (A[i] < B[j] && i< A.length) // move A till A> B
+            i++;
+        while (A[i] > B[j] && j < B.length) // move B till B>A
+            j++;
+        if( A[i] == B[j]){
+            result.add(A[i]);
+            i++;
+            j++;
+        }
+    }
+    return result;
+}
+
+List<Integer> findInterset(List<Integer> A, List<Integer> B){
+    if (!areIntersetcing(A, B))
+        return false;
+    
+    if (A.get(0) >= B.get(0))
+        return find(B, A);
+    else 
+        return find(A, B);
+    
+}
+
+List<Integer> findIn(List<Integer> A, List<Integer> B){
+    int lastA = 0;
+    int bi = 0;
+    List<Integer> result = new ArrayList<>();
+    TreeSet<Integer> setA = new TreeSet<>();
+    setA.addAll(A); // n log n
+    while(bi < B.size() -1 &&  B.get(bi) <= A.get(A.size() -1)){ // n
+        int ai = searchOrFloor(B.get(bi), A, lastA); // log n
+        if ( A.get(ai) == B.get(bi))
+            result.add(B.get(bi));
+        lastA = ai;
+        bi++;
+    }
+}
+
+int searchOrFloor(int val, List<INteger> A, int start){
+    // exit 
+    int st = start;
+    int end = A.size() -1
+    int mid = (st+end)/2;
+    
+    while((mid-st) > 1){
+        if (val == A.get(mid))
+            return mid;
+        else if ( val >= A.get(end) )
+            return end;
+        else if ( val > A.get(mid) )
+            st=mid;
+        else if ( val == A.get(st) )
+            return st;
+        else if ( val < A.get(st) )
+            return Math.max(0, st-1);
+        else if ( val < A.get(mid))
+            end=mid;
+    }
+    return st;
+    
+}
+
+boolean areIntersetcing(List<Integer> A, List<Integer> B){
+ 
+    return  !(A.get(A.length-1) < B.get(0)
+         || B.get(A.length-1) < A.get(0));
+}
+
 //REMOVE DUPLICATES FROM A SORTED linked LIST
 
 class Node{
