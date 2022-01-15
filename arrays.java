@@ -1,3 +1,94 @@
+// Quicksort
+/*
+
+mid -< any mid element
+lastbigi
+
+while (i< A.len)
+if Ai > A lbi
+  swap i lbi
+  
+
+while ( Ai < A lbi)
+  i++
+lbi = i
+
+*/
+
+List<Integer> sort(List<Integer> listA){
+
+  int[] A = listA.toArray(new int[A.length]);
+  
+  
+}
+
+int[] A part(int[] A, int st, int end){
+  int mid = (st+end)/2;
+  int lasti = st;
+  int i=st;
+  swap(A, mid, lasti);
+  
+  while(i< A.lenght-1){
+      
+      if (A[i]> A[lasti])
+          swap(A, lasti, i);
+      
+      while(A[i]<A[mid] && A.length -1  > i)
+          i++;
+      lasti=i;
+
+      
+  }
+  swap(A, mid, lasti);
+  
+  
+  part(A, st, lasti-1);
+  part(A, lasti, end);
+  
+}
+
+
+int[] part(int[]A){
+ 
+    int pivot = A[(A.length-1)/2];
+    lastmaxi = 0;
+    
+    for ( int i = 0 ; i < A.length; i++){
+        if (A[i]< pivot){
+            swap(A, i, lastmaxi);
+            lastmaxi++;
+        }
+    }
+    //lastmaxi is now the start of larger values > = pivot
+    int lastmini = A.length;
+    for ( int i = A.length-1; i>=lastmaxi; i--){
+        if (A[i]> pivot){
+            swap(A, lastmin, i);
+            lastmin--;
+        }
+    }
+}
+
+/*
+  
+  
+i=0
+j=A.len-1
+
+while(i<j){
+  while (i<j && i< A[mid])
+    i++
+  while (i<j && j> A[mid])
+    j--
+  
+  if ( A[i] > A[j])
+    swap(i,j)
+  
+  
+
+*/
+
+
 //Compute the intersection of two sorted arrays
 /*
 input is (2,3,3,5,5,6,7,7,8,12} and (5,5,6,8,8,9,10,10), your output
