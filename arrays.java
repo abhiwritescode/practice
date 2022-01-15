@@ -1,3 +1,216 @@
+// Given url array: [Foo/bar foo/biz/bar]	Convert to map :  { Foo:bar, biz:bar } I.e a map of maps
+
+/*
+foo -> {bar: {},  biz : {bar:{}}}, 
+
+string[] S
+for i = 0 .. s, new HashMap<String, ?>());
+    if !contains
+        map.put(S[i], new List<Map<String, ?>>());
+        
+
+*/
+Map<String, ?> getMap(List<String> urls){
+    Map<String, ?> topMap = new HashMap<>();
+    
+    for (String url : urls){
+        Map<String,?> map = topMap;
+        for (String sec : parse(url)){
+            Map<?> list = map.get(sec);
+            if (sec == null ){
+                list = new HashMap<String, ?>();
+                map.put(sec, list);
+            }
+        }
+    }
+    return topMap;
+}
+
+String[] parse(String S){
+    return S.split("/");
+}
+
+
+//  Concatenate string to itself with decreasing sizes e.g.  cake -> cakecakcac
+/*
+
+// ns
+C = chararray
+for ( i = n-1 .. 0) // n
+  for ( in c
+  sb.append(S.substring(0,i)); // s
+
+
+
+*/
+
+
+//GIven n x  n matrix of letters find all words formed by moving in any direction from a letter to the next in any of the 8 directions. Do not reuse a letter
+
+/*
+
+
+DFS 
+Set <point> used
+
+
+*/
+class Node{
+    String wordSoFar;
+    Point pt;
+}
+class Point{
+    int x;
+    int y;
+}
+
+
+List<String> getWords(int[][] A, Point start){
+        
+    Set<Point> used = new HashSet<>();
+    Queue<Node> que = new Deque<>();
+    que.offer(new Node("", start));
+    List<String> result = new ArrayList<>();
+    
+    while(!que.isEmpty()){
+        Node n = que.get();
+        used.add(n.pt);
+        String newWordSofar = n.wordSoFar + A[pt.x][pt.y];
+        if (isEdge(n.pt))
+            result.add(newWordSofar);
+        
+        getAvailNeighbors(n.pt, used, A).stream()
+            .map(pt -> new Node(newWordSofar, pt))
+            .forEach(que.add(node));
+    }
+}
+
+List<Point> getAvailNeighbors(Point p, Set<Point> used, int[][] A){
+    List<String> result = new ArrayList<>();
+
+    for ( int x=-1 ; x<=1; x++){
+        for (int y=-1 ; y<=1; y++){
+            if (p.x + x >= && p.x + x < A.length
+                && p.y + y >= && p.y + y < A.length
+               && !(x==0 && y==0)){
+                
+                result.add(new Point(p.x + x, p.y + y));
+            }
+        }
+    }
+    return result;
+}
+
+boolean isEdge(Point p, int [][] A){
+    return p.x ==0 || p.y ==0 || p.x == A.length -1 ||p.y == A.length -1;
+}
+
+
+// GIven rectangles find the points of interest inside the rectangle
+/*
+
+rect : { x1, y1, x2, y2}
+points : {x, y}
+
+Sort rects by p2.x R log R
+Sort all points by x P log P
+
+while ( !r empty && !P empty){ // P+R
+    if (P.x in R)
+        p++
+    else 
+        r++
+}
+
+*/
+
+class Point{
+    int x;
+    int y;
+}
+class Rectangle{
+    Point p1;
+    Point p2;
+}
+
+//
+List<Point> getPoints(List<Rectangle> rects, List<Point> pts){ //O(PR)
+    
+    Collections.sort(pts, new Comparator<Point> (){ // p log p
+        int compare(Point p1, Point p2){
+            return Integer.compare(p1.x, p2.x);
+        }
+    });
+    
+    Collections.sort(pts, new Comparator<Rectangle> (){
+        int compare(Rectangle r1, Rectangle r2){
+            return Integer.compare(r1.p2.x, r2.p2.x);
+        }
+    });
+    
+    int p=0;
+    int r=0;
+    List<point> result = new ArrayList<>();
+    while(p < pts.size() && r< rects.size()){ // p+ r
+        if (isInside(pts.get(p), rects.get(r))){
+            p++;
+            result.add(pts.get(p));
+        }
+        else
+            r++;
+    }
+    return result;
+}
+
+boolean isINside(Rectangle rect, Point pt){
+    return pt.x >= rect.pt1.x &&  pt.x >= rect.pt2.x 
+        && pt.y >= rect.pt1.y &&  pt.y >= rect.pt2.y;
+}
+
+// Given array of numbers find the index of the next maximum
+
+/*
+
+3 6 2 0 8 4 5 7 
+6 6 6 6 6 6 
+
+n2 
+
+Stack 
+
+
+7 4 
+
+for i= 0 n-2
+  A[i] = 
+  if stk.peek > i
+  else pop stk
+*/
+
+int[] nextMax(int[] A){
+    Stack<Integer> stk = new Stack<>();
+    
+    for ( int i = A.length-1 ;i>=0; i--){
+        if (stk.isEmpty() || A[stk.peek()] < A[i]){
+            A.push(i);
+        }
+    }
+    // stk now contains indexes in increasing A[i]
+    int [] B = new int[A.length-1];
+    for (int i = 0; i < A.length-2 ; i++){
+        if (i >= stk.peek()){
+            stk.pop();
+        }
+        B[i] = stk.peek();
+    }
+    return B;
+}
+        
+    
+  
+  
+}
+
 // Quicksort
 /*
 
