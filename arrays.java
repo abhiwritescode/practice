@@ -1,3 +1,228 @@
+//find the length of the longest subarray of consecutive integers in an array
+/*
+
+ubt st = 0
+i=1
+longest = 0
+for ( int i = 1 i < A.len 
+    if (A[i] != A[i-1] +1)
+        st = i
+        longest max (longest, i-1 - st)
+  
+  
+  
+*/
+
+
+// Maximum profit from one trade
+/*
+
+find max(A[i] - A[j]) i > j
+
+3 2 6 4 8 5 
+
+5 8 
+add to stack ifrom the end 
+for i = n-1 ..1
+    if ( A[i] > 
+*/
+
+int maxProfit(int [] A){
+    Stack< Integer> stk = new Stack<>();
+    for ( int i = A.length -1 ; i> 0; i--){
+        if (stk.empty() || A[i] > A[stk.peek()])
+            stk.push(i);
+    }
+    
+    int max =0;
+    for ( int i=0; i< A.length-1;i++){
+        if (i>=stk.peek())
+            stk.pop();
+        max = Math.max(max, A[stk.peek()] - A[i]);
+    }
+    return max;
+}
+
+// max profit with 2 trades
+/*
+trd1
+trd2
+prevtrd
+
+if Ai > Ai-1
+ capture pft trd1 (if trd1=0) or trd2
+ max pft = trd1+trd2
+ trd1 = max(trd1, trd2)
+ 
+*/
+/*
+
+i   0   1   2   3   4   5   6   7   
+A   2    6  3   8   11  4   9   12
+stk
+i=0 [2]
+i=1 [2] 
+i=2 pft = Ai-peek() = 4 [2,  3] prevpft = [A1-A0]
+i=3 pft = Ai-peek = 5   [2, pft=A1-A0, 3] 
+i=4 
+i=5 drop pft = A[i-1] - peek = A4-A2 = 8  [0 2 5]  prevpft = [A1-A0] A4-A2
+i=6 
+
+sort the profits
+*/
+class Trade{
+}
+
+int max2trades(int[]A){
+    int trd1=0;
+    int maxpft =0;
+    int /*prevminI*/ pmI = 0;
+    PriorityQueue<Trade> trds = new PriorityQueue<>();
+    LInkedList<Trade> 
+    for ( int i = i; i < A.length; i++){
+        if ( A[i] < A[i-1]) {
+            int pft = A[i-1] - A[pmI];
+            trds.add(new Trade(pft, i-1, pmI));
+            pmI = i;
+        }
+    }
+    return optimize(trds);
+    
+
+}
+
+int optimize(LinkedList<Trade> trsd){ // O(n)
+    List<Trades> tradesArray = new ArrayList<>(trds);
+    Trades[] tAry = tradesArray.toList(new Trades[0]);
+    int max =0;
+    for (int i=0; i<A.length-1; i++ ){
+        int pft1 = tAry[0]
+    }
+}
+
+
+int max2trades(int[]A){
+    int trd1=0;
+    int maxpft =0;
+    int /*prevminI*/ pmI = 0;
+    
+    for (int i =1 ; i< A.length; i++){ // i=0, trd1=0, pmi=0, Ai = 2
+        
+        
+        
+        if (A[i] > A[pmI]){
+            int pft = A[i] - A[pmI];
+            if (trd1 > 0){
+                maxpft = Math.max(maxpft, trd1 + pft);
+            } else {
+                trd1 = pft;
+            }
+            trd1 = Math.max(trd1, pft);
+        } else if (A[i] < A[pmI]){
+            pmI = i;
+        }
+    }
+    
+}
+
+
+//SORT AN INCREASING-DECREASING ARRAY
+// not given k
+/*
+find the 
+1 3 5 
+5 8 10
+10 13 14
+
+merge (1 ,3 , 4, 5)
+merger (5 8 9 10)
+
+
+*/
+
+class Section{
+    int st;
+    int end;
+}
+
+int [] sort(int[] A){
+
+    // sections of increasing are now avail st to mid and mid + 1 to end -1 
+    List<Section> sections = reverseSubLists( A);
+    int s = 0;
+    while (sections.size() > 1){
+//         int s = 0;
+        List<Section> nextSections = new LinkedList<>();
+        for ( int s = 0; s< sections.size() ; s+=2){
+            Section sec1 = sections.get(s);
+            if ( s+1 < sections.size() ){
+                Section sec2 = sections.get(s+1);
+                merge(A, sec1.st, sec1.end,  sec2.st, sec2.end);
+                nextSections.add(new Section(sec1.st, sec2.end));
+            } else {
+                nextSections.add(new Section(sec1.st, sec1.end));
+            }
+        }
+        sections = newSections;
+    }
+}
+
+
+// merge sections into larger ones
+void merge(int[] A, int s1, int e1, int s2, int e2){
+    int i1 = s1;
+    int i2 = s2;
+    int [] temp = new int[e2-s1+1];
+    int t = 0;
+    while ( i1 <=e1 && i2 <= e2 ){
+        if (A[i1] < A[i2] ){
+            temp[t] = A[i1];
+            i1++;
+        } else if ( A[i1] > A[i2] ){
+            temp[t] = A[i2];
+            i2++;
+        } else {
+            temp[t] = A[i2];
+            temp[++t] = A[i2];
+            i1++;
+            i2++;
+        }
+        t++;
+    }
+    for ( int j=0; j<temp.legth; j++){
+        A[st+j] = temp[j];
+    }
+}
+
+
+// trivial in place reverse
+int [] A reverse (int[] A, int st, int end){
+    
+}
+
+
+List<Section> reverseSubLists(int [] A){ // O(n)
+    int st = 0;
+    int i = 0;
+    List<Sedction> sections = new LinkedList<>();
+    while (i < A.length){
+        int st = i;
+        while (A[i] > A[i-1] && i < A.lengt )
+            i++;
+        if ( i< A.length -1){
+            int mid = i-1;
+        }
+        while (A[i] < A[i-1] && i < A.lengt )
+            i++;
+        if ( i< A.length -1){
+            int end = i-1;
+        }
+        reverse(A, mid+1, end);
+        sections.add(new Section(st, end);
+    }
+    return ;
+}
+
 // Given url array: [Foo/bar foo/biz/bar]	Convert to map :  { Foo:bar, biz:bar } I.e a map of maps
 
 /*
