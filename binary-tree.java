@@ -1,3 +1,28 @@
+// IN order DFS
+void dfs(Node root){
+
+    Stack <Node> stk = new Stack<>();
+    Node n = root;
+    
+    while(!stk.empty || n != null){
+    
+        if ( n != null ){
+            if ( n.left != null ){
+                stk.push(n);
+                n = n.left;
+            } else {
+                visit(n);
+                if (n.rt != null )
+                    stk.push(n.rt);
+            }
+        } else {
+            n= stk.pop();
+            visit(n);
+            n = n.rt;
+        }
+                
+    }
+}
 
 // Create a heap from array
 /*
