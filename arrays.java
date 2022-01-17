@@ -1,3 +1,27 @@
+//Given an integer array nums, return the maximum difference between two successive elements in its sorted form. 
+//If the array contains less than two elements, return 0.
+/*
+ nums = [3,6,9,1, 5, 2]
+Output: 3
+
+rute force - sort and then scan for diff A[i] - A[i-1]
+
+Array store diffs
+3 3 -8 4 -3
+
+partition?
+
+Stack - 
+1 2
+3 5
+min=1 max =9 
+
+
+*/
+
+
+
+
 //find the length of the longest subarray of consecutive integers in an array
 /*
 
