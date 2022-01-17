@@ -1,4 +1,189 @@
-//t takes asinput a triangle of numbers and returns the weight ofa minimum weight path
+//Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+/*
+Input: nums = [2,3,-2,4]
+6 -12 -48
+
+[-2,0,-1]
+0 0 
+
+[2,3,-2, 4    8     12     -5     11     -4]
+   6 -12 -48 -376  -4000  20000  220000  -880000
+
+firstnegi
+   */
+
+int getMaxPdt(int[] A){
+ 
+  int pdt = A[0];
+  int[] P = new int[A.length-1];
+  
+  for ( int i = 1; i< A.length; i++){
+    pdt = pdt*A[i];
+    P[i-1] = pdt;
+  }
+  
+  int firstnegi /*fni*/ = -1;
+  int maxpdt = 0;
+  
+  for ( int i = 0; i< P.length; i++){
+  
+    if ( i==0 && P[i] < 0 ){
+      fni = 0;
+      continue;
+    }
+    if (P[i] <0 && P[i-1] >=0 ){
+      fni = i;
+      maxpdt = max(maxpdt, P[i-1]);
+    } else if (P[i] <0){
+       maxpdt = max(maxpdt, P[i]/P[fni]); 
+    }  else if (P[i] >=0){
+       fni = -1;
+       maxpdt = max(maxpdt, P[i]); 
+    }
+    
+    
+    
+  }
+  
+}
+
+
+
+
+
+/*
+Output: 6
+Explanation: [2,3] has the largest product 6.
+
+brute force n^3
+
+with memoization
+
+p[i,j] =p[i, j-1] *j
+max = max(max, p[i,j])
+
+p[][]
+for ( i = 0..n-1)
+  for (j=i+1..n-1)
+   if ( j==i+1)
+    p[i][j] = j*i;
+    continue
+   
+   p[i][j] = p[i,j-1]*j;
+   max = max(max, p[i,j]) 
+*/
+
+int maxProduct(int[] A){
+  int max=0;
+  int[][] pdt = new int[A.length][A.length];
+  
+  
+
+
+
+
+
+
+
+
+
+// Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane, 
+// return the maximum number of points that lie on the same straight line.
+
+/*
+brute force
+take 2 poiunts at a time - n^2
+  on that line tets all other points - n
+n^3
+max
+for i = 0..n-1
+ for j=i+1 ..n-1
+   cnt = 0
+   for p=0..n-1
+    p!= i && p!j
+    if p on line(i,j)
+      cnt++
+      
+max[k] = max point on line thru first k points.
+
+max [j] = max[j-1] + 1 - if j on line(0,j-1)
+          max[j-1]  else
+          
+          for ( i=1..j-1)
+            if j on (0,i)
+              max[j] = max(max[j], max[i] + 1)
+            else
+              max[j] = max(max[j], max[i] 
+              
+for s=0..n-1
+ for e=s+1..n-1
+  if ( e=s+1)
+    max[s,e] = 2
+  else 
+    if e on line(s,e-1)
+     max[s,e] = max(max[s,e], max[s,e-1]+1)
+    else
+     max[s,e] = max(max[s,e], max[s,e-1])
+    if s on line(s+1,e) 
+     max[s,e] = max(max[s,e], max[s+1,e]+1)
+    else
+     max[s,e] = max(max[s,e], max[s+1,e])
+     
+
+*/
+class Point{
+  int x;
+  int y;
+}
+
+class LIne{
+  float slope;
+  float c; // y-intercept
+  boolean hasPoint(Point p){
+  // calculate;
+  }
+  Line(Point p1, Point p2){
+    // calculater line params..
+  }
+}
+
+int maxPoints(List<Point> pts){
+  // store max point on line with pts i to pts[j]
+  int max[][] = new int[pts.size()][pts.size()];
+  Line maxLine [][] = new Line[pts.size()][pts.size()];
+  
+  Point[] P = pts.toArray(new Point[]);
+  
+  for (int s = 0; s< P.length; s++){
+    for (int e = s+1; e< P.length; e++){
+      if ( e=s+1){
+        max[s][e] = 2;
+        maxLine[s][e] = new Line (P[s], P[e]);
+        continue;
+      }
+      int newMax = 0;
+      Line newLine = null;
+
+      
+      if (maxLine[s][e-1].has(P[e])){
+        newMax = max(newMax, max[s][e-1] + 1);
+        newLine = 
+    }
+  }
+      
+
+}
+
+boolean onLine(Point findP, Point p1, Point p2){
+
+  float slope = (p2.y - p1,y)/(p2.x - p1.x);
+  // complete line calculator..
+}
+
+                 
+  
+  
+//  /t takes asinput a triangle of numbers and returns the weight ofa minimum weight path
 /*
 triangle is a list of lists, each os increasing llength
 
