@@ -1,3 +1,50 @@
+//t takes asinput a triangle of numbers and returns the weight ofa minimum weight path
+/*
+triangle is a list of lists, each os increasing llength
+
+M[0][0] = min( M[1][0], M[1][1])
+M[1][0] = min(M[2][0], M[2][1])
+
+M[i][j] = min(M[i+1][j] , M[i+1][j+1]);
+
+start from bottom 
+
+for ( r=n-1; r>=0 ; r--){
+  for (c = 0; c<=r; c++){
+     //lowest rw
+     if ( r== n-1)
+      min[r][c] = A[r][c]
+     else
+      sum1 = A[r][c] +min[r+1][c]
+      sum2 = A[r][c] +min[r+1][c-1]
+      min[r][c] = min(sum1, sum2)
+
+*/
+
+int getMinPath(int[][] A){
+  
+  for ( int i =0 ; i< A.size(); i++)
+    for ( int j =0 ; j< A.get(i).size(); j++)
+      M[i][j] =  A.get(i).get(j);
+  
+  int[][] min = new int[A.length][A.length];
+  
+  for ( int r = A.length-1 ; r>=0 ; r--){
+    for ( int c = 0 ; c<=r ; c++){
+      if (r == A.length-1)
+        min[r][c] = A[r][c];
+      else{
+        int left = A[r][c] + min[r+1][c];  
+        int rgt = A[r][c] + min[r+1][c+1];  
+        min[r][c] = Math.min(left.rgt);
+      }
+    }
+  }
+  return min[0][0];
+}
+
+
+
 //rod cutting with cost c
 /*
 
