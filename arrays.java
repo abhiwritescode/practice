@@ -1,3 +1,228 @@
+// Compute for each input timestamp, the maximum traffic over the window length time interval which ends at that timestamp
+/*
+
+[  24 3 8 5 8 3 1 6 0 5 ]
+k=3
+i= 0 1 2 
+for i =2 ..n-1
+  maxwin(i-2, i)
+  
+heap? - just take the peek and keep replacing till 
+stack - needs iteration
+
+*/
+
+class Entry{
+  int val;
+  int index;
+}
+List<INteger> getMaxWin(List<integer> traffic, int W){
+  if (W> traffic.size()){
+    return new ArrayList<>();
+  }
+  
+  int[] T = traffic.toArray(new int[]);
+  PriorityQueue<Entry> heap = createHeap(T);
+  List<Integer> maxes = new LinkedList<>();
+      
+  for (int i = W-1; i<T.length; i++){ // O(n)
+    heap.offer(new Entry(T[i], i));   // log w
+    // remove if any old ones at top
+    while(heap.peek().index < i-W){   // only once for each element, not repeated
+      heap.get();  
+    }
+    maxes.add(heap.peek().value);
+    
+  }
+  return maxes;
+}
+
+PriorityQueue<Integer> createHeap(int[] T){
+  return  new PriorityQueue<>(){
+    new Comparator<Entry>(){
+      int compare(Entry a, Entry b){
+        return INteger.compare(b.val, a.val);
+      }
+    }
+  };
+  for ( int i=0 ; i< W-1; i++)
+    heap.offer(new Entry(T[i], i));
+  return heap;
+  
+}
+
+
+// COMPUTE THE LONGEST SUBSTRING WITH MATCHING PARENS
+/*
+ s '"((())()(()(", then "(())()" i
+ 
+ 
+ class {char ; index}
+class range{st, end}
+(()
+
+2-3
+()
+new () 1,4
+4 touhces 3
+1-4
+
+()5,6 5touhces 4
+combine (1-4, 5-6) -> 1-6
+
+8-9
+7-10
+
+Map 
+1-> 1-6
+6-> 1-6
+8->8-9
+9->8-9
+
+*/
+Enum BracketType{
+  OPEN('(');
+  CLOSE(')');
+  BracketType get(char C){
+    if ( c == '(')
+      return OPEN;
+    else if ( c == ')')
+      return CLOSE;
+    else
+      throw new IllegalStateException();
+}
+class Entry{
+  BracketType type;
+  int index;
+}
+class Range{
+  int st;
+  int end;
+  int width(){
+    return end-st+1;
+  }
+}
+
+String longestMatching(String str){
+    
+  char[] S = str.toCharArray();
+  Stack<Entry> stk = new Stack<>();
+  Map<Integer, Range> indexToRage /* i2r*/ = new HashMap<>();
+  
+  int i = 0;
+  
+  while (i< S.length){
+    BracketType type = BracketType.get(S[i]);
+    
+    if ( typ.equals(CLOSE) 
+        && stk.peek().type.equals(OPEN)){
+      // matching close brack
+      Entry entry = stk.pop();
+      Range range = new Range(entry.index, i);
+      merge(i2r, range);
+    } else {
+      stk.push(new Entry(type, i));
+    }
+  }
+  Range maxR =  getLongest(i2r);
+  return str.substring(maxR.st, maxR.end+1);
+}
+ 
+// Find entries with neoghbors of range and merge
+void merge(Map<Integer, Range> i2r, Range rng){
+  if(i2r.containsKey(st-1){
+    //append new ramge to existing
+    Range prev = i2r.get(st-1);
+    if (prev.end == 
+    
+  } else if (i2r.containsKey(st+1){
+    // try append surrounding
+  }
+}
+
+  
+Range getLongest(Map<Integer, Range> i2r){ // O(n)
+  
+  Range maxRange = null;
+  i2r.entries().stream()
+    .forEach(rng -> {
+      if (maxRange == null || rng.width() > maxRange.width())
+        maxRange = rng;
+    });
+  return maxRange;
+}
+ 
+  
+  
+  
+
+  
+  
+//Write a program which takes asinput a 2D array A of Is and Os, where the Os encode
+//the positions of rooks on an n X m chessboard, asshow in Figure 25.1(b) and updates
+//the array to contain Os at all locations which can be attacked by rooks,
+
+/*
+use A[0][0] to A[0][n-1] to store if any cols are 
+use A[0][0] to A[n-1][0] to store rows
+*/
+int[][] rook(int[][] A){
+ 
+ for (int r=1; r<A.length; r++){
+  for (int c=1; c<A[0].length; c++){
+   if ( A[r][c] == 0){
+    A[r][0] = 0;
+    A[0][c] = 0;
+   }
+  }
+ }
+ 
+  for (int c=0;c<A[0].length;c++){
+    if (A[0][c] == 0){
+      // set all A[1][c] to A[A.length-1][c] to 0
+    }
+  }
+   for (int r=0;r<A.length;r++){
+    if (A[r][0] == 0){
+      // set all A[r][1] to A[r][A[0].length-1] to 0
+    }
+  }
+ 
+ 
+}
+
+
+//You are given a string s. You can convert s to a palindrome by adding characters in front of it.
+
+// Return the shortest palindrome you can find by performing this transformation.
+
+/*
+
+Input: s = "aacecaaa"
+Output: "aaacecaaa"
+
+"abcd"
+
+brute force : add S[n-1] , check add S[n-1] S[n-2] , check
+n^2
+
+HashMap 
+
+a-> 0 1 5 6 7 
+c-> 2 4
+e -> 3
+
+for i = s.length/2 to 0 
+  for j= 1..i
+    s[i-j] == s[i+j]
+    if j==i
+      there is symmetru around i
+
+*/
+
+
+
+ 
 //Given an integer array nums, return the maximum difference between two successive elements in its sorted form. 
 //If the array contains less than two elements, return 0.
 /*
