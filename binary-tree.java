@@ -1,3 +1,28 @@
+//Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+/*
+Input: root = [1,2,3,null,5,null,4]
+Output: [1,3,4]
+
+i 
+left = 2i+1
+rgt = 2i+2
+
+
+*/
+List<INteger> getRightSide(List<Integer> tree){
+    int i = 0;
+    print(A[i]);
+    while (2*i+1< tree.length ||  2*i+2 < tree.length){
+        i = A[2*i+2] == null ?  A[2*i+1] : A[2*i+2];
+        if (A[i] != null)
+            print(A[i]);
+        else
+            break;
+    }
+        
+}
+
+
 // IN order DFS
 void dfs(Node root){
 
