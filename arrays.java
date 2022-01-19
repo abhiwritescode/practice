@@ -1,3 +1,112 @@
+//Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the polic
+/*
+nums = [2,7,9,3,1]
+Output: 12
+
+greedy
+sort by max heap by value, retain index
+create buckets with a index and value as keys(sets)
+  add (1, heap.get())
+  
+  need 3 buckets max
+  
+  
+  
+  DP
+  max value for range i to j
+  max[i,j] =  k-1  in max[i, k-1] -|| k+1 in max[k+1,j] then max [i, k-1] + max[k+1,j]
+              Else max[i, k-1] + A[k] + max[k+1,j]
+              
+              k-1 in max[i, k-1]
+                k+1 in max[k+1,j]
+                  higher of max[i, k-1]+ max[k+1,j] AND max[i, k-2]+ A[k] + max[k+2,j]
+                else   
+                  max[i, k-2]+ A[k] + max[k+1,j]
+              else
+                k+1 in max[k+1,j]
+                  higher of max[i, k-1]+ max[k+1,j] AND max[i, k-1]+ A[k] + max[k+2,j]
+                else   
+                  max[i, k-1]+ A[k] + max[k+1,j]
+              
+              
+              //O(n)
+              and for every i,j pair makes it O(n^3)
+*/
+
+
+
+//string s that represents a DNA sequence, return all the 10-letter-long sequences (substrings) that occur more than once
+/*
+brute force - put all 10 -d seq in a map and count 
+substring (i, i+10) * n - 
+
+*/
+
+// Given a list of non-negative integers nums, arrange them such that they form the largest number and return it
+/*
+Input: nums = [3,30,34,5,9]
+Output: "9534330"
+
+que sorted by 
+ msb, then nsb .. 
+ shorter number goes higher
+ 314
+ 3149 - if extra digtit> msb, longer else shorter
+*/
+
+int largest(int[] A){
+  PriorityQueue<Integer> que = initQue();
+  Arrays.asList(A).stream()
+    .forEach(val -> que.add(val));
+  
+  StringBuilder str = new StringBuilder("");
+  while(!que.empty()){
+    str.add(que.pop());  
+  }
+  return Integer.parseInt(str,toString());
+}
+
+PriorityQueue<Integer> initQue(){
+  return new PriorityQueue<>(new Comparator<>(){
+    int compare(int a, int b){
+      List<Character> bitsA = getBits(a);
+      List<Character> bitsB = getBits(b);
+      int i=0;
+      while(i< Math.min(bitsA.size(), bitsB.size())){
+        if ( bitsA.get(i) == bitsB.get(i)){
+          i++;
+          continue;
+        }
+        return Character.compare( bitsA.get(i),  bitsB.get(i));
+      }
+      char msb = bitsA.get(0);
+      char extra = bitsA.size() > bitsB.size() ? bitsA.get(i+1) : bitsB.get(i+1);
+      return Character.compare( msb,  extra);
+    }
+
+  });
+}
+
+
+static List<Character> getBits(int val){
+ return ("" + val).toCharArray(); 
+}
+                                                   
+
+                                                   
+
+//Counting sort
+/**
+A[i] values 1 to k =  3 1 6 4 2 7 5 3 5 -> 1 to 7
+
+C[] - > count of each -> C[1]=1 C[2]=1 C[3]=2 C[5]=2
+  -> acumulate           C[1]=1 C[2] = 2 C[3]=4 C[4]=5
+  
+  B[C[A[i]]= A[i]
+  B[1]=1 B[2]=2 B[4]=3 
+ for ( 
+*/
+
 // Compute for each input timestamp, the maximum traffic over the window length time interval which ends at that timestamp
 /*
 
