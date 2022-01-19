@@ -1,3 +1,53 @@
+//Compute binary tree nodesin order of increasing depth
+// n ((314),(6,6),(271,561, 2, 271),(28,0,3,1,28), (17,401, 257), (641)}
+
+class Node{
+    Node left;
+    NOde rgt;
+    int val;
+}
+
+List<List<Integer>> getLevels(Node root){
+ 
+    List<List<Integer>> result = new LinkedList<>();
+    Queue<Node> que = new ArrayDeque<>();
+    que.add(root);
+    while(!que.isEmpty()){
+        Node[] nodes = que.toArray();
+        List<Integer> values = new Li nkedList<>();
+        que.drain();
+        for (Node node: modes){
+            values.add(node.val);
+            if (node.left != null)
+                que.add(node.left);
+            if (node.rgt != null)
+                que.add(node.rgt);
+        }
+    }
+    
+    
+}
+
+
+// next max
+
+/*
+node has parent
+if node has rt child
+  get min(right child)
+
+find self or parent which is a left child of a parent node
+
+while (node != node.parent.left & !isRoot(node))
+ node = node.parent
+
+if isRoot(node)
+    return null
+else 
+    return node
+*/
+
+
 //Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
 /*
 Input: root = [1,2,3,null,5,null,4]
